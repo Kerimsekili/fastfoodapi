@@ -38,5 +38,6 @@ public class User {
         this.roleValue = role.getValue();
     }
 
+
 }
 
