@@ -27,17 +27,6 @@ public class User {
     @OneToMany(mappedBy = "manager")
     private List<Restaurant> restaurants;
 
-    private int roleValue;
-
-    @Transient
-    public Role getRole() {
-        return Role.values()[roleValue];
-    }
-
-    public void setRole(Role role) {
-        this.roleValue = role.getValue();
-    }
-
-
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
-
