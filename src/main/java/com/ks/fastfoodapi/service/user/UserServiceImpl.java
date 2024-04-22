@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
     public UserDto create(UserDto userDTO) {
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -31,7 +30,6 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(user, UserDto.class);
     }
 
-    @Override
     public List<UserDto> getAll() {
         List<User> users = userRepository.findAll();
         return users.stream()

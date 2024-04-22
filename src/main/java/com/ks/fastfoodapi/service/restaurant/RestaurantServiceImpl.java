@@ -20,7 +20,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
     public RestaurantServiceImpl(RestaurantRepository restaurantRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.restaurantRepository = restaurantRepository;
         this.userRepository = userRepository;
