@@ -1,6 +1,6 @@
 package com.ks.fastfoodapi.dto;
 
-import com.ks.fastfoodapi.security.Role;
+import com.ks.fastfoodapi.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 

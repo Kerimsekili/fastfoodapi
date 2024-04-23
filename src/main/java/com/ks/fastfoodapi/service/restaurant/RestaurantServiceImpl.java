@@ -5,12 +5,12 @@ import com.ks.fastfoodapi.model.Restaurant;
 import com.ks.fastfoodapi.model.User;
 import com.ks.fastfoodapi.repository.RestaurantRepository;
 import com.ks.fastfoodapi.repository.UserRepository;
-import com.ks.fastfoodapi.security.Role;
+import com.ks.fastfoodapi.enums.Role;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +47,32 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
     }
 
+    public RestaurantServiceImpl update(Long id, RestaurantDto restaurantDto) {
+        Optional<Restaurant> existingRestaurantOptional = restaurantRepository.findById(id);
+        if (existingRestaurantOptional.isPresent()) {
+            try {
+                User manager = userRepository.findById(restaurantDto.getManagerId())
+                        .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + restaurantDto.getManagerId()));
+
+                if (manager.getRole() != Role.RESTAURANT_MANAGER) {
+                    throw new IllegalArgumentException("Selected user is not a restaurant manager");
+                }
+
+                Restaurant existingRestaurant = existingRestaurantOptional.get();
+                existingRestaurant.setName(restaurantDto.getName());
+                existingRestaurant.setAddress(restaurantDto.getAddress());
+                existingRestaurant.setManager(manager);
+
+                restaurantRepository.save(existingRestaurant);
+
+                return this;
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(e.getMessage());
+            }
+        } else {
+            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+        }
+    }
 
     public List<RestaurantDto> getAll() {
         List<Restaurant> restaurants = restaurantRepository.findAll();

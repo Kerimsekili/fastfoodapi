@@ -23,11 +23,19 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDto create(UserDto userDTO) {
-        User user = modelMapper.map(userDTO, User.class);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user = userRepository.save(user);
-        return modelMapper.map(user, UserDto.class);
+    @Override
+    public UserDto login(String username, String password) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid password");
+        }
+
+        // Map user to UserDto
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+
+        return userDto;
     }
 
     public List<UserDto> getAll() {

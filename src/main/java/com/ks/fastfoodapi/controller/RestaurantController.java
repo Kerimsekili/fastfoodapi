@@ -3,10 +3,9 @@ package com.ks.fastfoodapi.controller;
 import com.ks.fastfoodapi.dto.RestaurantDto;
 import com.ks.fastfoodapi.model.User;
 import com.ks.fastfoodapi.repository.UserRepository;
-import com.ks.fastfoodapi.security.Role;
+import com.ks.fastfoodapi.enums.Role;
 import com.ks.fastfoodapi.service.restaurant.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +39,15 @@ public class RestaurantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
-
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody RestaurantDto restaurantDto) {
+        try {
+            restaurantService.update(id, restaurantDto);
+            return new ResponseEntity<>("Restaurant updated successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
     @GetMapping("/getAll")
     public ResponseEntity<List<RestaurantDto>> getAllRestaurants() {
         List<RestaurantDto> restaurants = restaurantService.getAll();

@@ -1,6 +1,7 @@
 package com.ks.fastfoodapi.controller;
 
 import com.ks.fastfoodapi.dto.UserDto;
+import com.ks.fastfoodapi.requests.LoginRequest;
 import com.ks.fastfoodapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,13 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto UserDto) {
-        UserDto createdUser = userService.create(UserDto);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> loginUser(@RequestBody LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+
+        UserDto authenticatedUser = userService.login(username, password);
+        return ResponseEntity.ok(authenticatedUser);
     }
 
     @GetMapping("/getAll")

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface RestaurantService {
     RestaurantServiceImpl create(RestaurantDto restaurantDto);
+    RestaurantServiceImpl update(Long id, RestaurantDto restaurantDto);
     List<RestaurantDto> getAll();
 
 }

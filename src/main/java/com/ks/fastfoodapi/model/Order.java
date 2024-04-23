@@ -1,6 +1,7 @@
 package com.ks.fastfoodapi.model;
 
 import com.ks.fastfoodapi.enums.OrderStatus;
+import com.ks.fastfoodapi.enums.ProductName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -21,8 +22,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Product name is required")
-    private String productName;
+    @Enumerated(EnumType.STRING)
+    private ProductName productName;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")

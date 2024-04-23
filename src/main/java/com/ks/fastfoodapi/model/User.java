@@ -1,6 +1,6 @@
 package com.ks.fastfoodapi.model;
 
-import com.ks.fastfoodapi.security.Role;
+import com.ks.fastfoodapi.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

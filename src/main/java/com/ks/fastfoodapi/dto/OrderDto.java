@@ -1,6 +1,8 @@
 package com.ks.fastfoodapi.dto;
 
 import com.ks.fastfoodapi.enums.OrderStatus;
+import com.ks.fastfoodapi.enums.ProductName;
+import com.ks.fastfoodapi.enums.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -15,8 +17,7 @@ public class OrderDto {
 
     private Long id;
 
-    @NotBlank(message = "Product name is required")
-    private String productName;
+    private ProductName productName;
 
     private Long restaurantId;
 
@@ -30,7 +31,9 @@ public class OrderDto {
     @Pattern(regexp = "^(05[0-9]{9})$", message = "Invalid Turkish phone number")
     private String contactNumber;
 
-    private OrderStatus status = OrderStatus.ORDER_RECEIVED;
+    private OrderStatus orderStatus;
 
-    private Long customerId;
+    private Role role;
+
+    private Long customerId; // Assuming this is the ID of the customer
 }

@@ -22,7 +22,7 @@ public class Restaurant {
 
     private String address;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "manager_id")
     private User manager;
 }

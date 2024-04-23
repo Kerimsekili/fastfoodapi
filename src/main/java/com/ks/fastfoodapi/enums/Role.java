@@ -1,4 +1,4 @@
-package com.ks.fastfoodapi.security;
+package com.ks.fastfoodapi.enums;
 
 import lombok.Getter;
 
