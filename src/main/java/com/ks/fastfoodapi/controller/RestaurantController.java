@@ -24,26 +24,40 @@ public class RestaurantController {
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody RestaurantDto restaurantDto) {
         try {
-            Optional<User> managerOptional = userRepository.findById(restaurantDto.getManagerId());
+            // Find the manager by name
+            Optional<User> managerOptional = userRepository.findByUsername(restaurantDto.getManagerName());
 
             if (managerOptional.isEmpty()) {
-                throw new IllegalArgumentException("User not found with ID: " + restaurantDto.getManagerId());
+                throw new IllegalArgumentException("User not found with name: " + restaurantDto.getManagerName());
             }
             User manager = managerOptional.get();
             if (manager.getRole() != Role.RESTAURANT_MANAGER) {
                 throw new IllegalArgumentException("Selected user is not a restaurant manager");
             }
+            // Set the manager ID in the restaurant DTO
+            restaurantDto.setManagerId(manager.getId());
+            // Call the service method with the updated DTO
             restaurantService.create(restaurantDto);
             return new ResponseEntity<>("Restaurant created successfully", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody RestaurantDto restaurantDto) {
         try {
             restaurantService.update(id, restaurantDto);
             return new ResponseEntity<>("Restaurant updated successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            restaurantService.delete(id);
+            return new ResponseEntity<>("Restaurant deleted successfully", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

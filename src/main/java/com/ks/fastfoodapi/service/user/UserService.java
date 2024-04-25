@@ -9,4 +9,6 @@ public interface UserService {
 
     UserDto login(String username, String password);
     List<UserDto> getAll();
+    List<String> getAllManagers();
+
 }

@@ -4,9 +4,7 @@ import com.ks.fastfoodapi.model.Restaurant;
 import com.ks.fastfoodapi.model.User;
 import com.ks.fastfoodapi.repository.RestaurantRepository;
 import com.ks.fastfoodapi.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 

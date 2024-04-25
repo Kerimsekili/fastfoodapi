@@ -1,6 +1,7 @@
 package com.ks.fastfoodapi.service.user;
 
 import com.ks.fastfoodapi.dto.UserDto;
+import com.ks.fastfoodapi.enums.Role;
 import com.ks.fastfoodapi.model.User;
 import com.ks.fastfoodapi.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -44,5 +45,11 @@ public class UserServiceImpl implements UserService {
                 .map(user -> modelMapper.map(user, UserDto.class))
                 .collect(Collectors.toList());
     }
+
+    public List<String> getAllManagers() {
+        List<User> managers = userRepository.findAllByRole(Role.RESTAURANT_MANAGER);
+        return managers.stream().map(User::getUsername).collect(Collectors.toList());
+    }
+
 }
 

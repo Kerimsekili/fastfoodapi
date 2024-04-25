@@ -14,4 +14,6 @@ public class RestaurantDto {
     private String address;
 
     private Long managerId;
+
+    private String managerName;
 }

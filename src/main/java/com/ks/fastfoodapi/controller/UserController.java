@@ -32,4 +32,9 @@ public class UserController {
         List<UserDto> users = userService.getAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    @GetMapping("/managers")
+    public ResponseEntity<List<String>> getAllManagers() {
+        List<String> managerNames = userService.getAllManagers();
+        return new ResponseEntity<>(managerNames, HttpStatus.OK);
+    }
 }

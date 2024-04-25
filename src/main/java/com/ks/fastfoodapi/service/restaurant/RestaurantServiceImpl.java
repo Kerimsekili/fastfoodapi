@@ -74,6 +74,15 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
     }
 
+    public void delete(Long id) {
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
+        if (restaurantOptional.isPresent()) {
+            restaurantRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+        }
+    }
+
     public List<RestaurantDto> getAll() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
         return restaurants.stream()
