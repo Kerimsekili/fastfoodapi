@@ -40,23 +40,18 @@ public class OrderServiceImpl implements OrderService {
             throw new IllegalArgumentException("Invalid product name");
         }
 
-        // Validate restaurant
         Restaurant restaurant = restaurantRepository.findById(orderDto.getRestaurantId())
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found with id: " + orderDto.getRestaurantId()));
 
-        // Fetch the user by name from the database
         User customer = userRepository.findByUsername(orderDto.getCustomerName())
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found with name: " + orderDto.getCustomerName()));
 
-        // Check if the customer has the role of CUSTOMER
         if (customer.getRole() != Role.CUSTOMER) {
             throw new IllegalArgumentException("User " + customer.getUsername() + " does not have the role of CUSTOMER");
         }
 
-        // Set orderStatus to ORDER_RECEIVED
         orderDto.setOrderStatus(OrderStatus.ORDER_RECEIVED);
 
-        // Map DTO to entity and save
         Order order = modelMapper.map(orderDto, Order.class);
         order.setRestaurant(restaurant);
         order.setCustomer(customer);
@@ -73,12 +68,10 @@ public class OrderServiceImpl implements OrderService {
         if (existingOrderOptional.isPresent()) {
             Order existingOrder = existingOrderOptional.get();
 
-            // Update order status if provided
             if (orderDto.getOrderStatus() != null) {
                 existingOrder.setStatus(orderDto.getOrderStatus());
             }
 
-            // Update other fields
             if (orderDto.getProductName() != null) {
                 existingOrder.setProductName(orderDto.getProductName());
             }
@@ -97,7 +90,6 @@ public class OrderServiceImpl implements OrderService {
                 existingOrder.setContactNumber(orderDto.getContactNumber());
             }
 
-            // Save the updated order
             Order updatedOrder = orderRepository.save(existingOrder);
             return modelMapper.map(updatedOrder, OrderDto.class);
         } else {
@@ -123,7 +115,6 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    // Helper method to validate product name
     private boolean isValidProductName(ProductName productName) {
         for (ProductName validProductName : ProductName.values()) {
             if (validProductName.equals(productName)) {

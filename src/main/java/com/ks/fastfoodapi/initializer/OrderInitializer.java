@@ -35,14 +35,14 @@ public class OrderInitializer implements CommandLineRunner {
         String[] customerNames = {"kerim", "ata", "zeynep", "kaan"};
         for (int i = 0; i < customerNames.length; i++) {
             OrderDto order = new OrderDto();
-            order.setProductName(ProductName.HAMBURGER_MENU); // Set product name as needed
-            order.setRestaurantId(1L); // Assuming the restaurant ID
+            order.setProductName(ProductName.HAMBURGER_MENU);
+            order.setRestaurantId(1L);
             order.setDeliveryAddress("Delivery Address " + (i + 1));
             order.setCustomerName(customerNames[i]);
-            order.setContactNumber("0555" + String.format("%07d", i + 1)); // Assuming Turkish phone number format
+            order.setContactNumber("0555" + String.format("%07d", i + 1));
             order.setOrderStatus(OrderStatus.ORDER_RECEIVED);
             order.setRole(Role.CUSTOMER);
-            order.setCustomerId((long) (i + 1)); // Assuming customer IDs start from 1
+            order.setCustomerId((long) (i + 1));
             orders.add(order);
         }
         return orders;

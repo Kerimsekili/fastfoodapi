@@ -35,5 +35,5 @@ public class OrderDto {
 
     private Role role;
 
-    private Long customerId; // Assuming this is the ID of the customer
+    private Long customerId;
 }

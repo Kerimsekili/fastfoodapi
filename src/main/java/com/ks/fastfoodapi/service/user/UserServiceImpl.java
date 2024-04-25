@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Invalid password");
         }
 
-        // Map user to UserDto
         UserDto userDto = modelMapper.map(user, UserDto.class);
 
         return userDto;

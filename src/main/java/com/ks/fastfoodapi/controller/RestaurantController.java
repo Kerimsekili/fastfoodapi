@@ -24,7 +24,6 @@ public class RestaurantController {
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody RestaurantDto restaurantDto) {
         try {
-            // Find the manager by name
             Optional<User> managerOptional = userRepository.findByUsername(restaurantDto.getManagerName());
 
             if (managerOptional.isEmpty()) {
@@ -34,9 +33,7 @@ public class RestaurantController {
             if (manager.getRole() != Role.RESTAURANT_MANAGER) {
                 throw new IllegalArgumentException("Selected user is not a restaurant manager");
             }
-            // Set the manager ID in the restaurant DTO
             restaurantDto.setManagerId(manager.getId());
-            // Call the service method with the updated DTO
             restaurantService.create(restaurantDto);
             return new ResponseEntity<>("Restaurant created successfully", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
