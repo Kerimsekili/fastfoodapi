@@ -115,6 +115,12 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    public Optional<OrderDto> getOrderById(Long id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        return orderOptional.map(order -> modelMapper.map(order, OrderDto.class));
+    }
+
+
     private boolean isValidProductName(ProductName productName) {
         for (ProductName validProductName : ProductName.values()) {
             if (validProductName.equals(productName)) {

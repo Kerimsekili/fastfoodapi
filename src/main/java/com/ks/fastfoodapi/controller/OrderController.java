@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -30,6 +31,13 @@ public class OrderController {
     public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
         OrderDto createdOrder = orderService.create(orderDto);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<OrderDto> getOrderById(@PathVariable Long id) {
+        Optional<OrderDto> orderDtoOptional = orderService.getOrderById(id);
+        return orderDtoOptional.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update/{id}")
