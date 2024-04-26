@@ -101,10 +101,6 @@ To run the application locally, follow these steps:
 5. Run the Docker container: `docker run -p 8080:8080 fastfood-backend`
 6. The application will be accessible at `http://localhost:8080`.
 
-## API Documentation
-
-The API documentation can be accessed using Swagger UI. After running the application locally, navigate to `http://localhost:8080/swagger-ui.html` to view the API documentation.
-
 ## Environment Variables
 
 Ensure that you have the following environment variables configured:
