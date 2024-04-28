@@ -1,5 +1,6 @@
 package com.ks.fastfoodapi.service.restaurant;
 
+import com.ks.fastfoodapi.requirements.RestourantAddRequirements;
 import com.ks.fastfoodapi.dto.RestaurantDto;
 import com.ks.fastfoodapi.model.Restaurant;
 import com.ks.fastfoodapi.model.User;
@@ -26,41 +27,40 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.modelMapper = modelMapper;
     }
 
-    public RestaurantServiceImpl create(RestaurantDto restaurantDto) {
+    @Override
+    public RestaurantServiceImpl create(RestourantAddRequirements restourantAddReq) {
         try {
-            User manager = userRepository.findById(restaurantDto.getManagerId())
-                    .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + restaurantDto.getManagerId()));
+            User manager = userRepository.findById(restourantAddReq.getManagerId())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + restourantAddReq.getManagerId()));
 
             if (manager.getRole() != Role.RESTAURANT_MANAGER) {
                 throw new IllegalArgumentException("Selected user is not a restaurant manager");
             }
 
-            Restaurant restaurant = modelMapper.map(restaurantDto, Restaurant.class);
-
+            Restaurant restaurant = modelMapper.map(restourantAddReq, Restaurant.class);
             restaurant.setManager(manager);
 
             restaurantRepository.save(restaurant);
-
-            return this;
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
+        return null;
     }
 
-    public RestaurantServiceImpl update(Long id, RestaurantDto restaurantDto) {
+    public RestaurantServiceImpl update(Long id, RestourantAddRequirements restourantAddReq) {
         Optional<Restaurant> existingRestaurantOptional = restaurantRepository.findById(id);
         if (existingRestaurantOptional.isPresent()) {
             try {
-                User manager = userRepository.findById(restaurantDto.getManagerId())
-                        .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + restaurantDto.getManagerId()));
+                User manager = userRepository.findById(restourantAddReq.getManagerId())
+                        .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + restourantAddReq.getManagerId()));
 
                 if (manager.getRole() != Role.RESTAURANT_MANAGER) {
                     throw new IllegalArgumentException("Selected user is not a restaurant manager");
                 }
 
                 Restaurant existingRestaurant = existingRestaurantOptional.get();
-                existingRestaurant.setName(restaurantDto.getName());
-                existingRestaurant.setAddress(restaurantDto.getAddress());
+                existingRestaurant.setName(restourantAddReq.getName());
+                existingRestaurant.setAddress(restourantAddReq.getAddress());
                 existingRestaurant.setManager(manager);
 
                 restaurantRepository.save(existingRestaurant);

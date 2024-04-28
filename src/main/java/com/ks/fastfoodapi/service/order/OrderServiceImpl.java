@@ -115,6 +115,13 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<OrderDto> getAllByUserId(Long userId) {
+    List<Order> orders = orderRepository.findAllByCustomer_Id(userId);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDto.class))
+                .collect(Collectors.toList());  }
+
     public Optional<OrderDto> getOrderById(Long id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         return orderOptional.map(order -> modelMapper.map(order, OrderDto.class));

@@ -11,5 +11,7 @@ public interface OrderService {
     void delete(Long id);
     Optional<OrderDto> getOrderById(Long id);
     List<OrderDto> getAll();
+    List<OrderDto> getAllByUserId(Long userId);
+
 }
 

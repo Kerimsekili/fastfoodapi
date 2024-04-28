@@ -39,6 +39,11 @@ public class OrderController {
         return orderDtoOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping("/getByCustomer/{id}")
+    public ResponseEntity<List<OrderDto>> getOrdersByCustomer(@PathVariable Long id) {
+        List<OrderDto> orders = orderService.getAllByUserId(id);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDto) {

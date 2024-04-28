@@ -1,5 +1,6 @@
 package com.ks.fastfoodapi.dto;
 
+import com.ks.fastfoodapi.model.UserResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,5 @@ public class RestaurantDto {
 
     private String address;
 
-    private Long managerId;
-
-    private String managerName;
+    private UserResponse manager;
 }

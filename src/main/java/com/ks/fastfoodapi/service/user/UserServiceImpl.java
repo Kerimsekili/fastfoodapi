@@ -1,5 +1,6 @@
 package com.ks.fastfoodapi.service.user;
 
+import com.ks.fastfoodapi.model.UserResponse;
 import com.ks.fastfoodapi.dto.UserDto;
 import com.ks.fastfoodapi.enums.Role;
 import com.ks.fastfoodapi.model.User;
@@ -8,8 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,6 +52,24 @@ public class UserServiceImpl implements UserService {
     public List<String> getAllManagers() {
         List<User> managers = userRepository.findAllByRole(Role.RESTAURANT_MANAGER);
         return managers.stream().map(User::getUsername).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserResponse> getAllManagersWithUserResponse() {
+        List<User> managers = userRepository.findAllByRole(Role.RESTAURANT_MANAGER);
+        List<UserResponse> userResponses = new ArrayList<>();
+        if ( nonNull( managers ) )
+        {
+            for ( User user : managers )
+            {
+                UserResponse userResponse = new UserResponse();
+                userResponse.setUsername(user.getUsername());
+                userResponse.setRole(user.getRole());
+                userResponse.setId(user.getId());
+                userResponses.add(userResponse);
+            }
+        }
+        return userResponses;
     }
 
 }

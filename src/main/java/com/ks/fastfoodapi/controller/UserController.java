@@ -1,10 +1,10 @@
 package com.ks.fastfoodapi.controller;
 
 import com.ks.fastfoodapi.dto.UserDto;
+import com.ks.fastfoodapi.model.UserResponse;
 import com.ks.fastfoodapi.requests.LoginRequest;
 import com.ks.fastfoodapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +33,9 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
     @GetMapping("/managers")
-    public ResponseEntity<List<String>> getAllManagers() {
-        List<String> managerNames = userService.getAllManagers();
-        return new ResponseEntity<>(managerNames, HttpStatus.OK);
+    public ResponseEntity<?> getAllManagers() {
+        List<UserResponse> managerNames = userService.getAllManagersWithUserResponse();
+        return ResponseEntity.ok( managerNames );
+        //ResponseEntity<>(managerNames, HttpStatus.OK);
     }
 }
