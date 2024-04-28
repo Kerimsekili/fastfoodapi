@@ -7,6 +7,7 @@ import com.ks.fastfoodapi.service.restaurant.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final UserRepository userRepository;
 
+    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody RestourantAddRequirements restaurantDto) {
         try {
@@ -29,6 +31,7 @@ public class RestaurantController {
         }
     }
 
+    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody RestourantAddRequirements restaurantDto) {
         try {
@@ -38,6 +41,7 @@ public class RestaurantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
