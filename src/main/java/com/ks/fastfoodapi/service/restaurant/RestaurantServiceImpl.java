@@ -1,6 +1,6 @@
 package com.ks.fastfoodapi.service.restaurant;
 
-import com.ks.fastfoodapi.requirements.RestourantAddRequirements;
+import com.ks.fastfoodapi.requirements.RestaurantAddRequirements;
 import com.ks.fastfoodapi.dto.RestaurantDto;
 import com.ks.fastfoodapi.model.Restaurant;
 import com.ks.fastfoodapi.model.User;
@@ -28,7 +28,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantServiceImpl create(RestourantAddRequirements restourantAddReq) {
+    public RestaurantServiceImpl create(RestaurantAddRequirements restourantAddReq) {
         try {
             User manager = userRepository.findById(restourantAddReq.getManagerId())
                     .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + restourantAddReq.getManagerId()));
@@ -47,7 +47,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return null;
     }
 
-    public RestaurantServiceImpl update(Long id, RestourantAddRequirements restourantAddReq) {
+    public RestaurantServiceImpl update(Long id, RestaurantAddRequirements restourantAddReq) {
         Optional<Restaurant> existingRestaurantOptional = restaurantRepository.findById(id);
         if (existingRestaurantOptional.isPresent()) {
             try {

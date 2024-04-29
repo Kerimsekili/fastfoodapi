@@ -2,13 +2,11 @@ package com.ks.fastfoodapi.controller;
 
 import com.ks.fastfoodapi.dto.RestaurantDto;
 import com.ks.fastfoodapi.repository.UserRepository;
-import com.ks.fastfoodapi.requirements.RestourantAddRequirements;
+import com.ks.fastfoodapi.requirements.RestaurantAddRequirements;
 import com.ks.fastfoodapi.service.restaurant.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +21,7 @@ public class RestaurantController {
 
     //@PreAuthorize("hasRole('GENERAL_MANAGER')")
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody RestourantAddRequirements restaurantDto) {
+    public ResponseEntity<String> create(@RequestBody RestaurantAddRequirements restaurantDto) {
         try {
             restaurantService.create(restaurantDto);
             return new ResponseEntity<>("Restaurant created successfully", HttpStatus.CREATED);
@@ -34,7 +32,7 @@ public class RestaurantController {
 
     //@PreAuthorize("hasRole('GENERAL_MANAGER')")
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody RestourantAddRequirements restaurantDto) {
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody RestaurantAddRequirements restaurantDto) {
         try {
             restaurantService.update(id, restaurantDto);
             return new ResponseEntity<>("Restaurant updated successfully", HttpStatus.OK);

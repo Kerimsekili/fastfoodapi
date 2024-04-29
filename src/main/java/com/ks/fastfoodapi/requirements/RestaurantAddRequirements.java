@@ -3,7 +3,7 @@ package com.ks.fastfoodapi.requirements;
 import lombok.Data;
 
 @Data
-public class RestourantAddRequirements {
+public class RestaurantAddRequirements {
     private Long id;
 
     private String name;

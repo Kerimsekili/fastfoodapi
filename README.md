@@ -2,6 +2,15 @@
 
 This repository contains the backend code for the Fast Food App, a web application for managing orders and restaurants.
 
+## Table of Contents
+
+- [Used Technologies](#technologies-used)
+- [Project Structure](#project-structure)
+- [Endpoints](#endpoints)
+- [Installation](#running-the-application)
+- [Enviroment Variables](#environment-variables)
+- [Initializer](#initializer)
+
 ## Technologies Used
 
 - **Java**: Programming language used for backend development.
