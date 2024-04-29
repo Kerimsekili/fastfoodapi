@@ -100,7 +100,7 @@ You can reach All the endpoints from [HERE](https://restless-desert-688693.postm
 
 ### UserController
 
-#### GET /api/users/managers
+#### GET /api/users/managers/getAll
 
 - Description: Retrieves a list of restaurant managers.
 - Response:
