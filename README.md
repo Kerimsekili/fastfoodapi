@@ -53,20 +53,20 @@ You can reach All the endpoints from [HERE](https://restless-desert-688693.postm
     - `200 OK`: Returns the order DTO if found.
     - `404 Not Found`: If the order with the specified ID is not found.
 
-#### PUT /api/orders/update/{id}
+#### PUT /api/orders/update/{id}/{role}
 
 - Description: Updates an existing order.
 - Request Parameters:
-    - `id` (Path Variable): ID of the order to update.
+    - `id` `role`(Path Variable): ID of the order to update.
 - Request Body: JSON object representing the updated order DTO.
 - Response:
     - `200 OK`: Returns the updated order DTO.
 
-#### DELETE /api/orders/delete/{id}
+#### DELETE /api/orders/delete/{id}/{role}
 
 - Description: Deletes an order by its ID.
 - Request Parameters:
-    - `id` (Path Variable): ID of the order to delete.
+    - `id` `role`(Path Variable): ID of the order to delete.
 - Response:
     - `200 OK`: If the order is deleted successfully.
 
@@ -76,25 +76,25 @@ You can reach All the endpoints from [HERE](https://restless-desert-688693.postm
 
 - Description: Retrieves a restaurant by its ID.
 - Request Parameters:
-    - `id` (Path Variable): ID of the restaurant to retrieve.
+    - `id`  (Path Variable): ID of the restaurant to retrieve.
 - Response:
     - `200 OK`: Returns the restaurant DTO if found.
     - `404 Not Found`: If the restaurant with the specified ID is not found.
 
-#### PUT /api/restaurants/update/{id}
+#### PUT /api/restaurants/update/{id}/{role}
 
 - Description: Updates an existing restaurant.
 - Request Parameters:
-    - `id` (Path Variable): ID of the restaurant to update.
+    - `id` `role` (Path Variable): ID of the restaurant to update.
 - Request Body: JSON object representing the updated restaurant DTO.
 - Response:
     - `200 OK`: Returns the updated restaurant DTO.
 
-#### DELETE /api/restaurants/delete/{id}
+#### DELETE /api/restaurants/delete/{id}/{role}
 
 - Description: Deletes a restaurant by its ID.
 - Request Parameters:
-    - `id` (Path Variable): ID of the restaurant to delete.
+    - `id` `role` (Path Variable): ID of the restaurant to delete.
 - Response:
     - `200 OK`: If the restaurant is deleted successfully.
 

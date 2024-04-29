@@ -47,17 +47,32 @@ public class OrderController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    //@PreAuthorize("hasRole('GENERAL_MANAGER' and 'RESTAURANT_MANAGER')")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDto) {
-        OrderDto updatedOrder = orderService.update(id, orderDto);
-        return ResponseEntity.ok(updatedOrder);
+    @PutMapping("/update/{id}/{role}")
+    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id,@PathVariable String role, @RequestBody OrderDto orderDto) {
+        try {
+            if (role.equals("GENERAL_MANAGER") || role.equals("RESTAURANT_MANAGER")) {
+                orderService.update(id, orderDto);
+                return ResponseEntity.ok(orderDto);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
-        orderService.delete(id);
-        return ResponseEntity.ok("Order deleted successfully");
+    @DeleteMapping("/delete/{id}/{role}")
+    public ResponseEntity<String> deleteOrder(@PathVariable Long id, @PathVariable String role) {
+        try {
+            if (role.equals("GENERAL_MANAGER")) {
+                orderService.delete(id);
+                return new ResponseEntity<>("Restaurant deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("You are not allowed to delete Restaurant", HttpStatus.UNAUTHORIZED);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }
+

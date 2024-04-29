@@ -17,35 +17,45 @@ import java.util.List;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
-    private final UserRepository userRepository;
 
-    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
-    @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody RestaurantAddRequirements restaurantDto) {
+    @PostMapping("/create/{role}")
+    public ResponseEntity<String> create(@RequestBody RestaurantAddRequirements restaurantDto,@PathVariable String role) {
         try {
-            restaurantService.create(restaurantDto);
-            return new ResponseEntity<>("Restaurant created successfully", HttpStatus.CREATED);
+            if(role.equals("GENERAL_MANAGER")){
+                restaurantService.create(restaurantDto);
+                return new ResponseEntity<>("Restaurant updated successfully", HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>("You are not allowed to create new Restaurant", HttpStatus.UNAUTHORIZED);
+            }
+
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody RestaurantAddRequirements restaurantDto) {
+    @PutMapping("/update/{id}/{role}")
+    public ResponseEntity<String> update(@PathVariable Long id, @PathVariable String role , @RequestBody RestaurantAddRequirements restaurantDto) {
         try {
-            restaurantService.update(id, restaurantDto);
-            return new ResponseEntity<>("Restaurant updated successfully", HttpStatus.OK);
+            if (role.equals("GENERAL_MANAGER") || role.equals("RESTAURANT_MANAGER"))  {
+                restaurantService.update(id, restaurantDto);
+                return new ResponseEntity<>("Restaurant updated successfully", HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>("You are not allowed to update Restaurant", HttpStatus.UNAUTHORIZED);
+            }
+
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}/{role}")
+    public ResponseEntity<String> delete(@PathVariable Long id, @PathVariable String role) {
         try {
-            restaurantService.delete(id);
-            return new ResponseEntity<>("Restaurant deleted successfully", HttpStatus.OK);
+            if (role.equals("GENERAL_MANAGER")) {
+                restaurantService.delete(id);
+                return new ResponseEntity<>("Restaurant deleted successfully", HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>("You are not allowed to update Restaurant", HttpStatus.UNAUTHORIZED);
+            }
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
