@@ -15,11 +15,16 @@ This repository contains the backend code for the Fast Food App, a web applicati
 
 The project structure is organized as follows:
 
-- **src/main/java/com/fastfoodapp**: Root package for Java source files.
+- **src/main/java/com/ks/fastfoodapi**: Root package for Java source files.
+    -**config**: It provides configuration classes such as CORS config, ModelMapper and Security for the project. 
     - **controller**: Contains classes responsible for handling HTTP requests and responses.
     - **dto**: Contains Data Transfer Objects (DTOs) used to transfer data between layers.
+    - **enums**: The package where we keep the variables we use as enum in the project.
+    - **initializer**: When we run the project, it seeds the users, restaurants and orders to be seeded into the application.
     - **model**: Contains entity classes representing database tables.
     - **repository**: Contains repository interfaces for interacting with the database.
+    - **requests**: Provides model for login request
+    - **requirements**:Provides model for AddRestaurant requirements.
     - **service**: Contains service classes implementing business logic.
 - **src/main/resources**: Contains application properties and configuration files.
 - **Dockerfile**: Contains instructions for building a Docker image of the application.
