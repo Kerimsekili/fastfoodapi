@@ -36,6 +36,5 @@ public class UserController {
     public ResponseEntity<?> getAllManagers() {
         List<UserResponse> managerNames = userService.getAllManagersWithUserResponse();
         return ResponseEntity.ok( managerNames );
-        //ResponseEntity<>(managerNames, HttpStatus.OK);
     }
 }

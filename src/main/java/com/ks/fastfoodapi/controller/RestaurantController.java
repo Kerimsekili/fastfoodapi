@@ -1,7 +1,6 @@
 package com.ks.fastfoodapi.controller;
 
 import com.ks.fastfoodapi.dto.RestaurantDto;
-import com.ks.fastfoodapi.repository.UserRepository;
 import com.ks.fastfoodapi.requirements.RestaurantAddRequirements;
 import com.ks.fastfoodapi.service.restaurant.RestaurantService;
 import lombok.RequiredArgsConstructor;
