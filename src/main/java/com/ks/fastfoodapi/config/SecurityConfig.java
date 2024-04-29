@@ -8,12 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
 @Configuration
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true
-)
-public class SecurityConfig extends GlobalMethodSecurityConfiguration {
+//@EnableGlobalMethodSecurity(
+//        prePostEnabled = true,
+//        securedEnabled = true,
+//        jsr250Enabled = true
+//)
+public class SecurityConfig { //extends GlobalMethodSecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {

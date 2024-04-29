@@ -26,6 +26,8 @@ The project structure is organized as follows:
 
 ## Endpoints
 
+You can reach All the endpoints from [HERE](https://restless-desert-688693.postman.co/workspace/Team-Workspace~08046d94-76b2-4867-88d0-119b83d1622b/collection/21566556-4c71bc69-f25a-4478-aaf4-969250118a7d?action=share&creator=21566556) !
+
 ### OrderController
 
 #### GET /api/orders/get/{id}

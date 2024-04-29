@@ -47,17 +47,17 @@ public class OrderController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('GENERAL_MANAGER' and 'RESTAURANT_MANAGER')")
+    //@PreAuthorize("hasRole('GENERAL_MANAGER' and 'RESTAURANT_MANAGER')")
     @PutMapping("/update/{id}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDto) {
         OrderDto updatedOrder = orderService.update(id, orderDto);
         return ResponseEntity.ok(updatedOrder);
     }
 
-    @PreAuthorize("hasRole('GENERAL_MANAGER')")
+    //@PreAuthorize("hasRole('GENERAL_MANAGER')")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
         orderService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Order deleted successfully");
     }
 }
